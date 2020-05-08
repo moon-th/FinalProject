@@ -24,7 +24,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
-import javax.servlet.annotation.WebServlet;
+//import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 
-@WebServlet("/modelmail.do")
+//@WebServlet("/modelmail.do")
 public class WebSendMail extends HttpServlet {
 	 
 	  String to = "finalot12345@gmail.com";
@@ -127,27 +127,27 @@ public class WebSendMail extends HttpServlet {
 		}
 
 		private void sendMail(HashMap mailData) throws MessagingException {
-	        System.setProperty("mail.smtp.starttls.enable", "true"); // gmail은 무조건 true 고정
-	        System.setProperty("mail.smtp.auth", "true"); // gmail은 무조건 true 고정
-	        System.setProperty("mail.smtp.host", "smtp.gmail.com"); // smtp 서버 주소
-	        System.setProperty("mail.smtp.port", "587"); // gmail 포트
-	        //구글 인증
+	        System.setProperty("mail.smtp.starttls.enable", "true"); // gmail�� 臾댁“嫄� true 怨좎젙
+	        System.setProperty("mail.smtp.auth", "true"); // gmail�� 臾댁“嫄� true 怨좎젙
+	        System.setProperty("mail.smtp.host", "smtp.gmail.com"); // smtp �꽌踰� 二쇱냼
+	        System.setProperty("mail.smtp.port", "587"); // gmail �룷�듃
+	        //援ш� �씤利�
 	        Authenticator auth = new MyAuthentication();
 	        Message msg = new MimeMessage(Session.getDefaultInstance(System.getProperties(), auth));
-	        //받는사람
+	        //諛쏅뒗�궗�엺
 	        InternetAddress[] tos = InternetAddress.parse(to);
 	        msg.setRecipients(Message.RecipientType.TO, tos);
-	        //한글을 위한 인코딩
+	        //�븳湲��쓣 �쐞�븳 �씤肄붾뵫
 	        msg.setHeader("Content-Type", "text/plain; charset=UTF-8");
-	        //제목
+	        //�젣紐�
 	        msg.setSubject((String)mailData.get("subject"));
 	        msg.setSentDate(new Date());
 	 
-	        //첨부파일이 없으면 내용만 전송
+	        //泥⑤��뙆�씪�씠 �뾾�쑝硫� �궡�슜留� �쟾�넚
 	        if(null == mailData.get("attachment")){
 	                 msg.setText((String)mailData.get("body"));
 	          } else {
-	            //첨부파일이 있으면
+	            //泥⑤��뙆�씪�씠 �엳�쑝硫�
 	            BodyPart body = new MimeBodyPart();
 	              BodyPart attachment = (BodyPart)mailData.get("attachment");
 	              body.setText((String)mailData.get("body"));
@@ -156,7 +156,7 @@ public class WebSendMail extends HttpServlet {
 	              multipart.addBodyPart(attachment);
 	              msg.setContent(multipart, "text/plain; charset=UTF-8");
 	           }
-	        //전송
+	        //�쟾�넚
 	        Transport.send(msg);
 	    }
 
